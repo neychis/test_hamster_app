@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../css/rack.css'
 
 class Rack extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
