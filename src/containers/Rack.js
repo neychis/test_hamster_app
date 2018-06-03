@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Shelf from '../components/Shelf'
 import '../css/rack.css'
 
 class Rack extends Component {
@@ -12,7 +13,7 @@ class Rack extends Component {
   renderShelves() {
     var shelves = []
     for (let i = 0; i < this.state.numberofRows; i++) {
-      shelves.push(<div key={i}></div>)
+      shelves.push(Shelf())
     }
     return shelves;
   };

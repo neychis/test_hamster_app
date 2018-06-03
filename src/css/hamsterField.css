@@ -1,3 +1,8 @@
 .hamsterField{
   flex-grow: 1;
 }
+
+.hamsterField > img {
+    width: 80px;
+    height: 80px;
+}
