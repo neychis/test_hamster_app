@@ -1,12 +1,18 @@
-import React from 'react'
-import Toy from '../components/Toy'
-import teddy from '../statics/teddy-bear.svg'
-import '../css/hamsterField.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Toy from '../components/Toy';
+import teddy from '../statics/teddy-bear.svg';
+import '../css/hamsterField.css';
 
-const HamsterField = () => {
+const HamsterField = (toys = {}, onToyDrop) => {
   return (<div className='hamsterField'>
-    <Toy src={teddy} />
-  </div>)
+    <Toy src={teddy} onToyDrop={onToyDrop}/>
+  </div>);
 }
 
-export default HamsterField
+HamsterField.propTypes = {
+    toys: PropTypes.array,
+    onToyDrop: PropTypes.fun,
+}
+
+export default HamsterField;

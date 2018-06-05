@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-//isFull set here not to forget to implement a full state of the Shelf
-//toys will be stored on react state and only passed here
-const Shelf = (toys = [], isFull = false) => {
-    return (<div>{toys}</div>)
+//TODO don't forget to implement a full state of the Shelf
+const Shelf = (key = 0, toys = []) => {
+    return (<div key={key}>{toys}</div>);
 }
 
-export default Shelf
+export default Shelf;

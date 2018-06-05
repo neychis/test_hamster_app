@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
-import Shelf from '../components/Shelf'
-import '../css/rack.css'
+import PropTypes from 'prop-types';
+import Shelf from '../components/Shelf';
+import '../css/rack.css';
 
 class Rack extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      numberofRows : props.numberOfRows
-    };
+    this.numberOfShelves = props.numberOfShelves
   }
 
   renderShelves() {
     var shelves = []
-    for (let i = 0; i < this.state.numberofRows; i++) {
-      shelves.push(Shelf())
+    for (let i = 0; i < this.numberOfShelves; i++) {
+      shelves.push(Shelf(i))
     }
     return shelves;
   };
 
   render() {
-    return (<div className='rack'>{this.renderShelves()}</div>)
+    return (<div className='rack'>{this.renderShelves()}</div>);
   }
 }
 
-export default Rack
+Rack.propTypes = {
+    numberOfShelves: PropTypes.number,
+};
+
+export default Rack;
