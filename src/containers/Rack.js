@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Shelf from '../components/Shelf';
-import '../css/rack.css';
+import '../sass/rack.sass';
 
 class Rack extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Rack extends Component {
 }
 
 Rack.propTypes = {
-    numberOfShelves: PropTypes.number,
+  numberOfShelves: PropTypes.number,
 };
 
 export default Rack;
