@@ -4,37 +4,54 @@ import Rack from './containers/Rack';
 import './sass/main.sass';
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
+    const numberOfHamsters = 3;
+    const numberOfShelves = 5;
+    const currentShelfId = -1;
+    const hamsters = [];
+    for(let i = 0; i < numberOfHamsters; i++) {
+      hamsters.push({
+        id: i,
+        shelfId: currentShelfId,
+      });
+    };
+
     super(props);
     this.state = {
-      notStoredHamsters: [0, 1, 2],
-      storedHamsters: {},
-      numberOfShelvesAtTheRack: 5,
+      currentShelfId: currentShelfId,
+      hamsters: [...hamsters],
+      numberOfShelvesAtTheRack: numberOfShelves,
+      numberOfHamsters: numberOfHamsters,
     };
-    this.changeHamsterState.bind(this);
   }
 
-  changeHamsterState(movedHamsterId, shelfId = -1){
-    //TODO get the toy from array and change its position and then app state
+  setCurrentShelf = (shelfId = -1) => {
     const newState = {...this.state};
-    const indexOfHamster = this.state.notStoredHamsters.indexOf(movedHamsterId);
-    if (indexOfHamster !== -1 && shelfId > -1 ){
-      newState.notStoredHamsters = newState.notStoredHamsters.filter(hamsterId =>
-        hamsterId !== movedHamsterId);
-    }
-    else if (shelfId === -1){
-      newState.notStoredHamsters.push(movedHamsterId);
-    }
+    newState.currentShelfId = shelfId;
     this.setState(newState);
-  }
+  };
+  changeHamsterState = (movedHamsterId) => {
+    const newState = {...this.state};
+    const id = newState.hamsters.filter(hamster => hamster.id === movedHamsterId);
+    newState.hamsters[id] = {
+      id: movedHamsterId,
+      shelfId: newState.currentShelfId
+    };
+    this.setState(newState);
+  };
+  getStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId !== -1);
+  getNotStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId === -1);
 
   render() {
   return (<div className='mainContainer'>
       <HamsterField
-        hamsters={this.state.notStoredHamsters}
-        onHamsterDrop={this.changeHamsterState}
+        hamsters={ this.getNotStoredHamsters() }
+        onHamsterDrop={ movedHamsterId => this.changeHamsterState(movedHamsterId) }
       />
-      <Rack numberOfShelves={this.state.numberOfShelvesAtTheRack}/>
+      <Rack numberOfShelves={ this.state.numberOfShelvesAtTheRack }
+        storedHamsters={ this.getStoredHamsters() }
+        setCurrentShelf={ key => this.setCurrentShelf(key) }
+      />
     </div>);
   }
 }

@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Hamster from '../components/Hamster';
 import '../sass/hamsterField.sass';
 
-const HamsterField = (hamsters = {}, onHamsterDrop) => {
-  return (<div className='hamsterField'>
-    <Hamster key={0} onHamsterDrop={onHamsterDrop} />
-    <Hamster key={1} onHamsterDrop={onHamsterDrop} />
-    <Hamster key={2} onHamsterDrop={onHamsterDrop} />
-  </div>);
-}
+class HamsterField extends Component{
+  constructor(props){
+    super(props);
+    this.hamsters = props.hamsters;
+    this.onHamsterDrop = props.onHamsterDrop;
+  }
+
+  render() {
+    return (<div className='hamsterField'>{
+      this.hamsters.map(hamster => <Hamster
+        key={hamster.id}
+        onHamsterDrop={ movedHamsterId => this.onHamsterDrop(movedHamsterId) }
+      />)
+    }</div>);
+  }
+};
 
 HamsterField.propTypes = {
   hamsters: PropTypes.array,
