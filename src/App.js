@@ -7,20 +7,21 @@ class App extends Component {
   constructor(props) {
     const numberOfHamsters = 3;
     const numberOfShelves = 5;
-    const currentShelfId = -1;
+    const defaultShelfId = -1;
     const hamsters = [];
 
     for(let i = 0; i < numberOfHamsters; i++) {
       hamsters.push({
         id: i,
-        shelfId: currentShelfId,
+        shelfId: defaultShelfId,
       });
     };
 
     super(props);
 
     this.state = {
-      currentShelfId: currentShelfId,
+      currentShelfId: defaultShelfId,
+      defaultShelfId: defaultShelfId,
       hamsters: [...hamsters],
       numberOfShelvesAtTheRack: numberOfShelves,
       numberOfHamsters: numberOfHamsters,
@@ -35,6 +36,7 @@ class App extends Component {
       <HamsterField
         hamsters={ this.getNotStoredHamsters() }
         onHamsterDrop={ this.changeHamsterState }
+        setCurrentShelfIdDefault={ this.setCurrentShelfIdDefault }
       />
       <Rack numberOfShelves={ this.state.numberOfShelvesAtTheRack }
         storedHamsters={ this.getStoredHamsters() }
@@ -49,6 +51,8 @@ class App extends Component {
     newState.currentShelfId = shelfId;
     this.setState(newState);
   };
+
+  setCurrentShelfIdDefault = () => this.setCurrentShelf(this.state.defaultShelfId);
 
   changeHamsterState = movedHamsterId => {
     const newState = { ...this.state };
