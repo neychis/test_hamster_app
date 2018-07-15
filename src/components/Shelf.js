@@ -5,8 +5,10 @@ import Hamster from './Hamster';
 class Shelf extends Component {
   constructor(props){
     super(props);
-    this.setCurrentShelf = props.setCurrentShelf;
+
     this.hamsters = props.hamsters;
+    this.onHamsterDrop = props.onHamsterDrop;
+    this.setCurrentShelf = props.setCurrentShelf;
   }
 
   onDragOver = (e) => {
@@ -16,21 +18,22 @@ class Shelf extends Component {
 
   getHamsters = () => {
     return this.hamsters.map(hamster => <Hamster
-      key={hamster.id}
-      onHamsterDrop={ (e, key) => { console.log(key) } }
+      key={ hamster.id }
+      onHamsterDrop={ this.onHamsterDrop }
     />);
   };
 
   render() {
-    return (<div key={this.key} onDragOver={ e => this.onDragOver(e) } >
+    return (<div key={ this.key } onDragOver={ this.onDragOver } >
      { this.getHamsters() }
     </div>);
   }
 };
 
 Shelf.propTypes = {
-  setCurrentShelf: PropTypes.fun,
   hamsters: PropTypes.array,
+  onHamsterDrop: PropTypes.func,
+  setCurrentShelf: PropTypes.func,
 }
 
 export default Shelf;

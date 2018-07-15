@@ -6,7 +6,9 @@ import '../sass/rack.sass';
 class Rack extends Component {
   constructor(props) {
     super(props);
+
     this.numberOfShelves = props.numberOfShelves;
+    this.onHamsterDrop = props.onHamsterDrop;
     this.storedHamsters = props.storedHamsters;
     this.setCurrentShelf = props.setCurrentShelf;
   }
@@ -14,15 +16,11 @@ class Rack extends Component {
   renderShelves() {
     const shelves = [];
     for (let i = 0; i < this.numberOfShelves; i++) {
-      /*shelves.push(Shelf({
-        key: i,
-        hamsters: this.storedHamsters,
-        setCurrentShelf: (key) => this.setCurrentShelf(key)
-      }));*/
       shelves.push(<Shelf
-        key={i}
-        hamsters={this.storedHamsters}
-        setCurrentShelf={ key => this.setCurrentShelf(key) }
+        key={ i }
+        hamsters={ this.storedHamsters.filter(hamster => hamster.shelfId === i) }
+        setCurrentShelf={ this.setCurrentShelf }
+        onHamsterDrop={ this.onHamsterDrop }
       />);
     }
     return shelves;
@@ -35,6 +33,8 @@ class Rack extends Component {
 
 Rack.propTypes = {
   numberOfShelves: PropTypes.number,
+  onHamsterDrop: PropTypes.func,
+  storedHamsters: PropTypes.array,
   setCurrentShelf: PropTypes.func,
 };
 

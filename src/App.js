@@ -9,6 +9,7 @@ class App extends Component {
     const numberOfShelves = 5;
     const currentShelfId = -1;
     const hamsters = [];
+
     for(let i = 0; i < numberOfHamsters; i++) {
       hamsters.push({
         id: i,
@@ -17,6 +18,7 @@ class App extends Component {
     };
 
     super(props);
+
     this.state = {
       currentShelfId: currentShelfId,
       hamsters: [...hamsters],
@@ -25,20 +27,6 @@ class App extends Component {
     };
   }
 
-  setCurrentShelf = (shelfId = -1) => {
-    const newState = {...this.state};
-    newState.currentShelfId = shelfId;
-    this.setState(newState);
-  };
-  changeHamsterState = (movedHamsterId) => {
-    const newState = {...this.state};
-    const id = newState.hamsters.filter(hamster => hamster.id === movedHamsterId);
-    newState.hamsters[id] = {
-      id: movedHamsterId,
-      shelfId: newState.currentShelfId
-    };
-    this.setState(newState);
-  };
   getStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId !== -1);
   getNotStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId === -1);
 
@@ -46,14 +34,31 @@ class App extends Component {
   return (<div className='mainContainer'>
       <HamsterField
         hamsters={ this.getNotStoredHamsters() }
-        onHamsterDrop={ movedHamsterId => this.changeHamsterState(movedHamsterId) }
+        onHamsterDrop={ this.changeHamsterState }
       />
       <Rack numberOfShelves={ this.state.numberOfShelvesAtTheRack }
         storedHamsters={ this.getStoredHamsters() }
-        setCurrentShelf={ key => this.setCurrentShelf(key) }
+        setCurrentShelf={ this.setCurrentShelf }
+        onHamsterDrop={ this.changeHamsterState }
       />
     </div>);
   }
+
+  setCurrentShelf = shelfId => {
+    const newState = { ...this.state };
+    newState.currentShelfId = shelfId;
+    this.setState(newState);
+  };
+
+  changeHamsterState = movedHamsterId => {
+    const newState = { ...this.state };
+    const id = newState.hamsters.filter(hamster => hamster.id === movedHamsterId);
+    newState.hamsters[id] = {
+      id: movedHamsterId,
+      shelfId: newState.currentShelfId
+    };
+    this.setState(newState);
+  };
 }
 
 export default App;

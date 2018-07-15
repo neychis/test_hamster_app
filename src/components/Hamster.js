@@ -13,7 +13,7 @@ const Hamster = (key, onHamsterDrop) => {
       onDragOver={ e => e.preventDefault() }
       onDrop={ e => this.onHamsterDrop(e, key) }
     >
-      <img src={hamsterIcon} alt='{`hamster ${key}`}'/>
+      <img src={hamsterIcon} alt={`hamster ${key}`}/>
     </div>
   );
 }

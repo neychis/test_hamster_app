@@ -14,7 +14,7 @@ class HamsterField extends Component{
     return (<div className='hamsterField'>{
       this.hamsters.map(hamster => <Hamster
         key={hamster.id}
-        onHamsterDrop={ movedHamsterId => this.onHamsterDrop(movedHamsterId) }
+        onHamsterDrop={ this.onHamsterDrop }
       />)
     }</div>);
   }
@@ -22,7 +22,7 @@ class HamsterField extends Component{
 
 HamsterField.propTypes = {
   hamsters: PropTypes.array,
-  onHamsterDrop: PropTypes.fun,
+  onHamsterDrop: PropTypes.func,
 }
 
 export default HamsterField;
