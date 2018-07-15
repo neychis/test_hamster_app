@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import hamsterIcon from '../statics/cute-hamster-50px.png'
 
 const Hamster = (key, onHamsterDrop) => {
-  onHamsterDrop = (e, movedHamsterId) => {
+  const onDrop = (e) => {
     e.preventDefault();
-    onHamsterDrop(movedHamsterId);
+    onHamsterDrop(key);
   };
 
   return (<div
       draggable='true'
       onDragOver={ e => e.preventDefault() }
-      onDrop={ e => this.onHamsterDrop(e, key) }
+      onDrop={ this.onDrop }
     >
       <img src={hamsterIcon} alt={`hamster ${key}`}/>
     </div>

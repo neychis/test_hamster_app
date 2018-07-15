@@ -18,6 +18,7 @@ class Rack extends Component {
     for (let i = 0; i < this.numberOfShelves; i++) {
       shelves.push(<Shelf
         key={ i }
+        id={ i }
         hamsters={ this.storedHamsters.filter(hamster => hamster.shelfId === i) }
         setCurrentShelf={ this.setCurrentShelf }
         onHamsterDrop={ this.onHamsterDrop }

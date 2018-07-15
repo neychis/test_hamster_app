@@ -6,6 +6,7 @@ class Shelf extends Component {
   constructor(props){
     super(props);
 
+    this.id = props.id;
     this.hamsters = props.hamsters;
     this.onHamsterDrop = props.onHamsterDrop;
     this.setCurrentShelf = props.setCurrentShelf;
@@ -13,7 +14,7 @@ class Shelf extends Component {
 
   onDragOver = (e) => {
     e.preventDefault();
-    this.setCurrentShelf(this.key);
+    this.setCurrentShelf(this.id);
   };
 
   getHamsters = () => {
@@ -31,6 +32,7 @@ class Shelf extends Component {
 };
 
 Shelf.propTypes = {
+  id: PropTypes.number,
   hamsters: PropTypes.array,
   onHamsterDrop: PropTypes.func,
   setCurrentShelf: PropTypes.func,
