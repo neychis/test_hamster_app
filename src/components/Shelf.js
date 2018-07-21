@@ -9,23 +9,20 @@ class Shelf extends Component {
     this.id = props.id;
     this.hamsters = props.hamsters;
     this.onHamsterDrop = props.onHamsterDrop;
-    this.setCurrentShelf = props.setCurrentShelf;
   }
-
-  onDragOver = (e) => {
-    e.preventDefault();
-    this.setCurrentShelf(this.id);
-  };
 
   getHamsters = () => {
     return this.hamsters.map(hamster => <Hamster
       key={ hamster.id }
-      onHamsterDrop={ this.onHamsterDrop }
+      id={ hamster.id }
     />);
   };
 
   render() {
-    return (<div key={ this.key } onDragOver={ this.onDragOver } >
+    return (<div key={ this.id }
+      onDragOver={ e => e.preventDefault() }
+      onDrop={ e => this.onHamsterDrop(this.id) }
+    >
      { this.getHamsters() }
     </div>);
   }
@@ -35,7 +32,6 @@ Shelf.propTypes = {
   id: PropTypes.number,
   hamsters: PropTypes.array,
   onHamsterDrop: PropTypes.func,
-  setCurrentShelf: PropTypes.func,
 }
 
 export default Shelf;

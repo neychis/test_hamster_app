@@ -8,22 +8,17 @@ class HamsterField extends Component{
     super(props);
     this.hamsters = props.hamsters;
     this.onHamsterDrop = props.onHamsterDrop;
-    this.setCurrentShelfIdDefault = props.setCurrentShelfIdDefault;
-  }
-
-  onDragOver = e => {
-    e.preventDefault();
-    this.setCurrentShelfIdDefault();
   }
 
   render() {
     return (<div
       className='hamsterField'
-      onDragOver={ this.onDragOver }
+      onDragOver={ e => e.preventDefault() }
+      onDrop={ e => this.onHamsterDrop() }
     >{
       this.hamsters.map(hamster => <Hamster
         key={hamster.id}
-        onHamsterDrop={ this.onHamsterDrop }
+        id={ hamster.id }
       />)
     }</div>);
   }
@@ -32,7 +27,6 @@ class HamsterField extends Component{
 HamsterField.propTypes = {
   hamsters: PropTypes.array,
   onHamsterDrop: PropTypes.func,
-  setCurrentShelfIdDefault: PropTypes.func,
 }
 
 export default HamsterField;
