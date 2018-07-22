@@ -5,7 +5,6 @@ import hamsterIcon from '../statics/cute-hamster-50px.png'
 const Hamster = id => {
   const onDrop = (e) => {
     e.preventDefault();
-    onHamsterDrop(key);
   };
 
   const onDragStart = e => {
