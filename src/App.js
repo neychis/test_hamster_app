@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Constants from './Constants'
 import HamsterField from './containers/HamsterField';
 import Rack from './containers/Rack';
-import './sass/main.sass';
+import './sass/main.scss';
 
 class App extends Component {
   constructor(props) {

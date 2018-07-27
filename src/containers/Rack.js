@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Constants from '../Constants'
 import Shelf from '../components/Shelf';
-import '../sass/rack.sass';
+import '../sass/rack.scss';
 
 class Rack extends Component {
   constructor(props) {

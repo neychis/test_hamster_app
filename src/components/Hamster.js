@@ -16,6 +16,7 @@ const Hamster = id => {
   return (<div
       draggable='true'
       onDragStart={ onDragStart }
+      onDragEnd={ onDrop }
     >
       <img src={ hamsterIcon } alt={`hamster ${id}`}/>
     </div>

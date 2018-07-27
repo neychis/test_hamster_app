@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Hamster from '../components/Hamster';
-import '../sass/hamsterField.sass';
+import '../sass/hamsterField.scss';
 
 class HamsterField extends Component{
   constructor(props){
