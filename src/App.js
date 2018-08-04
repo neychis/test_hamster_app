@@ -6,60 +6,58 @@ import './sass/main.scss';
 
 class App extends Component {
   constructor(props) {
-    const hamsters = [];
-
-    for(let i = 0; i < Constants.numberOfHamsters; i++) {
-      hamsters.push({
-        id: i,
-        shelfId: Constants.defaultShelfId,
-      });
-    };
-
     super(props);
 
-    this.state = {
-      currentHamsterId: undefined,
-      currentShelfId: Constants.defaultShelfId,
-      hamsters: [...hamsters],
-      numberOfHamsters: Constants.numberOfHamsters,
+    const hamsters = [];
+    for(let i = 0; i < Constants.numberOfHamsters; i++) {
+      hamsters.push({ id: i });
     };
+
+    this.state = { hamsters: [...hamsters] };
   }
 
-  getStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId !== -1);
-  getNotStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId === -1);
+  componentDidMount() {
+    document.body.addEventListener(Constants.pickHamsterEventName, this.setCurrentHamsterId);
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener(Constants.pickHamsterEventName, this.setCurrentHamsterId);
+  }
+
+  getStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId !== undefined);
+  getNotStoredHamsters = () => this.state.hamsters.filter(hamster => hamster.shelfId === undefined);
 
   render() {
   return (<div className='mainContainer'>
       <HamsterField
-        hamsters={ this.getNotStoredHamsters() }
+        getHamsters={ this.getNotStoredHamsters }
         onHamsterDrop={ this.changeCurrentHamsterState }
       />
       <Rack
-        storedHamsters={ this.getStoredHamsters() }
+        getStoredHamsters={ this.getStoredHamsters }
         onHamsterDrop={ this.changeCurrentHamsterState }
       />
     </div>);
   }
 
-  setCurrentHamsterId = hamsterId => {
+  setCurrentHamsterId = event => {
     const newState = { ...this.state };
-    newState.currentHamsterId = hamsterId;
+    newState.currentHamsterId = event.detail.id;
     this.setState(newState);
-    console.log(hamsterId);
   };
 
   changeCurrentHamsterState = shelfId => {
     const newState = { ...this.state };
-    const id = newState.hamsters.filter(hamster => hamster.id === this.state.currentHamsterId);
+    const hamster = newState.hamsters.filter(hamster => hamster.id === this.state.currentHamsterId)[0];
+    const id = hamster.id;
     if (newState.hamsters[id]) {
       newState.hamsters[id] = {
         id: newState.currentHamsterId,
-        shelfId: shelfId || Constants.defaultShelfId,
+        shelfId: shelfId,
       };
 
       this.setState(newState);
     }
-    console.log(`changed hamster state ${newState.hamsters[id].id} -> ${newState.hamsters[id].shelfId}`)
   };
 }
 

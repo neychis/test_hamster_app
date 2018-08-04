@@ -1,6 +1,5 @@
 //now it is no need to create separate folder and files
 // for every category of constants so i store all here.
-const defaultShelfId = -1;
 const numberOfHamsters = 3;
 const numberOfShelves = 5;
 
@@ -17,10 +16,6 @@ export class Constants {
 
   static get pickHamsterEventName() {
     return pickHamsterEventName;
-  }
-
-  static get defaultShelfId() {
-    return defaultShelfId;
   }
 }
 

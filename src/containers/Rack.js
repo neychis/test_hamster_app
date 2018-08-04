@@ -1,38 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Constants from '../Constants'
 import Shelf from '../components/Shelf';
 import '../sass/rack.scss';
 
-class Rack extends Component {
-  constructor(props) {
-    super(props);
+const Rack = props => {
+  const getHamstersForCurrentShelf = shelfId => props.getStoredHamsters()
+    .filter(hamster => hamster.shelfId === shelfId);
 
-    this.onHamsterDrop = props.onHamsterDrop;
-    this.storedHamsters = props.storedHamsters;
-  }
-
-  renderShelves() {
+  const renderShelves = () => {
     const shelves = [];
     for (let i = 0; i < Constants.numberOfShelves; i++) {
       shelves.push(<Shelf
         key={ i }
         id={ i }
-        hamsters={ this.storedHamsters.filter(hamster => hamster.shelfId === i) }
-        onHamsterDrop={ this.onHamsterDrop }
+        getHamsters={ getHamstersForCurrentShelf }
+        onHamsterDrop={ props.onHamsterDrop }
       />);
     }
     return shelves;
   };
 
-  render() {
-    return (<div className='rack' > { this.renderShelves() } </div>);
-  }
+  return (<div className='rack' children={ renderShelves() } />);
 }
 
 Rack.propTypes = {
-  onHamsterDrop: PropTypes.func,
-  storedHamsters: PropTypes.array,
+  props: PropTypes.shape({
+    onHamsterDrop: PropTypes.func,
+    getStoredHamsters: PropTypes.func,
+  })
 };
 
 export default Rack;
